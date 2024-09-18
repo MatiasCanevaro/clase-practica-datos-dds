@@ -1,0 +1,148 @@
+@startuml lentti
+
+entity Pedido {
+* id: INTEGER(11) <<subrogada>>
+--
+* cliente_id: INTEGER(11) <<FK>>
+* restaurante_id: INTEGER(11) <<FK>>
+* medio_de_pago_id: INTEGER(11) <<FK>>
+* direccion_id: INTEGER(11) <<FK>>
+* fecha_hora: DATETIME
+* propina: FLOAT
+* costo_envio: FLOAT
+* porcentaje_comision: FLOAT
+* precio_final: FLOAT
+* tiempo_transporte: FLOAT
+* tiempo_entrega: FLOAT
+* estado: VARCHAR(255)
+}
+
+entity Producto_Pedido {
+* id: INTEGER(11) <<subrogada>>
+--
+* pedido_id: INTEGER(11) <<FK>>
+* producto_id: INTEGER(11) <<FK>>
+* cantidad: INTEGER(11)
+* observacion: TEXT
+* precio_compra: FLOAT
+* tiempo_preparacion: FLOAT
+}
+
+entity MedioDePago {
+* id: INTEGER(11) <<subrogada>>
+--
+* tipo: INTEGER(11) <<FK>>
+* firma: VARCHAR(255)
+}
+
+entity Tipo {
+* id: INTEGER(11) <<subrogada>>
+--
+* nombre: VARCHAR(255)  
+}
+
+entity Direccion {
+* id: INTEGER(11) <<subrogada>>
+--
+* calle: VARCHAR(255)
+* altura: INTEGER(255)
+* piso: INTEGER(255)
+* codigo_postal: INTEGER(11)
+}
+
+entity Cliente {
+* id: INTEGER(11) <<subrogada>>
+--
+* medio_de_pago_cliente_default: INTEGER(11) <<FK>>
+* direccion_id: INTEGER(11) <<FK>>
+* tipo_documento: VARCHAR(255)
+* numero_documento: VARCHAR(255)
+* propina_default: FLOAT
+* nombre: VARCHAR(255)
+}
+
+entity MedioDePago_Cliente {
+* id: INTEGER(11) <<subrogada>>
+--
+* medio_de_pago_id: INTEGER(11) <<FK>>
+* cliente_id: INTEGER(11) <<FK>>
+}
+
+
+entity Producto {
+* id: INTEGER(11) <<subrogada>>
+--
+* categoria_id: INTEGER(11) <<FK>>
+* producto_id: INTEGER(11) <<FK>>
+* nombre: VARCHAR(255)
+* precio: FLOAT
+* path_imagen: VARCHAR(255)
+* descripcion: TEXT
+* tiempo_preparacion: FLOAT
+}
+
+entity Categoria {
+* id: INTEGER(11) <<subrogada>>
+--
+* nombre: VARCHAR    
+}
+
+entity Restaurante {
+* id: INTEGER(11) <<subrogada>>
+--
+* zona_id: INTEGER(11) <<FK>>
+* nombre: VARCHAR(255)
+}
+
+entity Entrega {
+* id: INTEGER(11) <<subrogada>>
+--
+* repartidor_id: INTEGER(11) <<FK>>
+* pedido_id: INTEGER(11) <<FK>>
+* direccion_id: INTEGER(11) <<FK>>
+* fecha_hora_aceptada: DATETIME
+* fecha_hora_recogida: DATETIME
+* fecha_hora_entregada: DATETIME
+* conformidad: TEXT
+}
+
+entity Repartidor {
+* id: INTEGER(11) <<subrogada>>
+--
+* zona_id: INTEGER(11) <<FK>>
+* nombre: VARCHAR(255)
+* entrega_en_curso: TINYINT(1)
+}
+
+entity Zona {
+* id: INTEGER(11) <<subrogada>>
+--
+* nombre: VARCHAR(255)
+}
+
+Pedido }o--|| Cliente
+Pedido }o--|| Restaurante
+Pedido }o--|| MedioDePago
+Pedido }o--|| Direccion
+
+Producto_Pedido }|--|| Pedido
+Producto_Pedido }|--|| Producto
+
+MedioDePago }|--|| Tipo
+
+Producto }o--|| Categoria
+Producto ||--|{ Producto
+
+Restaurante }|--|| Zona
+
+Entrega }o--|| Repartidor
+Entrega }o--|| Pedido
+Entrega }o--|| Direccion
+
+Repartidor }o--|| Zona
+
+Cliente }|--|| Direccion
+
+MedioDePago_Cliente }|--|| MedioDePago
+MedioDePago_Cliente }|--|| Cliente
+@enduml
