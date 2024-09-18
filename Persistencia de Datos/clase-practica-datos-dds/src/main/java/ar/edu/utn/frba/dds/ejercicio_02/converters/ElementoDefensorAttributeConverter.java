@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.ejercicio_02.converters;
 import ar.edu.utn.frba.dds.ejercicio_02.elementos.Arco;
 import ar.edu.utn.frba.dds.ejercicio_02.elementos.ElementoDefensor;
 import ar.edu.utn.frba.dds.ejercicio_02.elementos.Escudo;
+import ar.edu.utn.frba.dds.ejercicio_02.elementos.Espada;
 
 import javax.persistence.*;
 
@@ -19,6 +20,8 @@ public class ElementoDefensorAttributeConverter implements AttributeConverter<El
                 return new Arco();
             case "Escudo":
                 return new Escudo();
+            case "Espada":
+                return new Espada();
             default:
                 throw new IllegalArgumentException("Unknown" + dbData);
         }

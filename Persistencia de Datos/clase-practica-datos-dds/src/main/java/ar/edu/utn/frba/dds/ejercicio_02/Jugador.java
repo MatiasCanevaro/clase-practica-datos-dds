@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name ="jugador")
 public class Jugador extends Persistente {
-  @Column(name = "nombre", columnDefinition="VARCHAR")
+  @Column(name = "nombre")
   private String nombre;
   @Column(name = "apellido")
   private String apellido;

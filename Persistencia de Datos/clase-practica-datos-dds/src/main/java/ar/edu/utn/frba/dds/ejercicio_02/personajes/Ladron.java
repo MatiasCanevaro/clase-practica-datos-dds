@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Ladron extends Personaje{
   @Column(name="nivel_siniestro", columnDefinition="INTEGER")
   private Integer nivelSiniestro;
-  @Column(name="tiene_navaja", columnDefinition="TINYINT<33333333333333333")
+  @Column(name="tiene_navaja", columnDefinition="TINYINT")
   private Boolean tieneNavaja;
 
   public void atacar(Personaje personaje) {
